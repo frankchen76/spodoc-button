@@ -65,9 +65,11 @@ export default class CallAzureFunctionCommandSet extends BaseListViewCommandSet<
         Dialog.alert("Please add 'AzureFunctionUrl' to 'Settings' list");
       }
     }).then(result=>{
-      dlg.close();
+      return dlg.close();
+    }).then(()=>{
       Dialog.alert("successful");
-    }).catch(err=>{
+    })
+    .catch(err=>{
       Dialog.alert(err);
     });
   }

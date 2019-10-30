@@ -67,16 +67,16 @@ export default class ProgressDialog extends BaseDialog {
 
   public getConfig(): IDialogConfiguration {
     return {
-      isBlocking: false
+      isBlocking: true
     };
   }
 
-  // protected onAfterClose(): void {
-  //     super.onAfterClose();
+  protected onAfterClose(): void {
+      super.onAfterClose();
 
-  //     // Clean up the element for the next dialog
-  //     ReactDOM.unmountComponentAtNode(this.domElement);
-  // }
+      // Clean up the element for the next dialog
+      ReactDOM.unmountComponentAtNode(this.domElement);
+  }
 
   //@autobind
   private _submit = (color: IColor) => {
