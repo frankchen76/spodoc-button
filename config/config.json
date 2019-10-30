@@ -1,0 +1,18 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/config.2.0.schema.json",
+  "version": "2.0",
+  "bundles": {
+    "call-azure-function-command-set": {
+      "components": [
+        {
+          "entrypoint": "./lib/extensions/callAzureFunction/CallAzureFunctionCommandSet.js",
+          "manifest": "./src/extensions/callAzureFunction/CallAzureFunctionCommandSet.manifest.json"
+        }
+      ]
+    }
+  },
+  "externals": {},
+  "localizedResources": {
+    "CallAzureFunctionCommandSetStrings": "lib/extensions/callAzureFunction/loc/{locale}.js"
+  }
+}

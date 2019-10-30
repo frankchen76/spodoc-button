@@ -1,0 +1,31 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/core-build/serve.schema.json",
+  "port": 4321,
+  "https": true,
+  "serveConfigurations": {
+    "default": {
+      "pageUrl": "https://ezcode.sharepoint.com/sites/AetnaPOC/TestDoc/Forms/AllItems.aspx",
+      "customActions": {
+        "26c5bada-2cf7-43f1-ae86-f5af03a7dbc7": {
+          "location": "ClientSideExtension.ListViewCommandSet.CommandBar",
+          "properties": {
+            "sampleTextOne": "One item is selected in the list",
+            "sampleTextTwo": "This command is always visible."
+          }
+        }
+      }
+    },
+    "callAzureFunction": {
+      "pageUrl": "https://ezcode.sharepoint.com/sites/AetnaPOC/TestDoc/Forms/AllItems.aspx",
+      "customActions": {
+        "26c5bada-2cf7-43f1-ae86-f5af03a7dbc7": {
+          "location": "ClientSideExtension.ListViewCommandSet.CommandBar",
+          "properties": {
+            "sampleTextOne": "One item is selected in the list",
+            "sampleTextTwo": "This command is always visible."
+          }
+        }
+      }
+    }
+  }
+}

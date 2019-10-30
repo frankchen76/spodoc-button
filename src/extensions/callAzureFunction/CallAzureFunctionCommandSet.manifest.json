@@ -1,0 +1,25 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx/command-set-extension-manifest.schema.json",
+
+  "id": "26c5bada-2cf7-43f1-ae86-f5af03a7dbc7",
+  "alias": "CallAzureFunctionCommandSet",
+  "componentType": "Extension",
+  "extensionType": "ListViewCommandSet",
+
+  // The "*" signifies that the version should be taken from the package.json
+  "version": "*",
+  "manifestVersion": 2,
+
+  // If true, the component can only be installed on sites where Custom Script is allowed.
+  // Components that allow authors to embed arbitrary script code should set this to true.
+  // https://support.office.com/en-us/article/Turn-scripting-capabilities-on-or-off-1f2c515f-5d7e-448a-9fd7-835da935584f
+  "requiresCustomScript": false,
+
+  "items": {
+    "COMMAND_RunAzureFunction": {
+      "title": { "default": "Run AzureFunction" },
+      "iconImageUrl": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAiMSURBVGhD7ZgNTFvXFcfvezY2XyavTUbo6KjTRaQJ+TAkywdpNxxla9OQBaRF7bJuxZuaaZ204XYq0lQJ0NRJ1aTiTWunpalYWlatH5pJ042mnWaadYEGUhzIKGQdeInKKAvwMGCw/ey7c66fPx5+2M8pa9epP+nJ99pgn3Pf//7PuY98yscMJ7+uGHTsEQuZeqmP0AX5nQSkMCGiX56okGO2c7svOuSZJnj5deXw/vkwCc9CJlLytRiA15D6xed2Zho8svIJcMY6eaQkTCEBSEIdkaxraJbHGbGiCdDL+yzEP2yWp0oWcaXl8VI4vpkrqe+UZxmxsncgMHpYHimhuPqQgBq63E6yq/c38ixjVjYBTq8unwBsXpRQMiIp+UEzl1sqyvOMWbEE6OiRGhKaXl4+qnDN3LpHr0s6Ua4rgeqT5wV5GGfWtU0eKQnC6uO1lLzbPGTHGSadJ89fSf4+jWScwI86huquLUqjh9p6R+W3IvB59fJIyYLK6utMhGQX27iCSiadU4Pjzr3Hu+ie411V7PMMyCiBR84M1b11ZaoFhsK/5wNCx3sTTDJ04KYaEp5PXkUJdB9USUBvcnDbTjHp/PHyhLAohatCsNEppa47T/bUsL/RiOYEHjz9t5qznkjwcIlGPW87sL7Qwz40mO9nr0vxq1hn1g0estER8/y7SwtFk1FvzdJFmoL5gOR8oH1A3QxU0NRKHH3RXT8y7WuEYSz4N7+zux0/o/1rBHCfUai0yjuA1jmFlTchA10+ISGfldvnTdq4u399zpKt5/vgbrD59s+usj15qCytvaa9A9VtvYrgy9aa7NHgGYZbapKCRxYhkMTgEV2uQy14pPu7le6Nhaby3Cwdm18Ym2k9+GxP2juRMoH7Xr5Y712UFLJ5pmaLclVCYrJ8MO6lbYN+lYcEJlK2C786VObesrbAKmTr2XxyIdj64OlLuHjLsqyE7jjRXW/U8S1zARaIQjZR6PhPzGSydZSEvPI7Mqj92aA8kcnf3ASb95Q8U4czEK78D+67TvZY/KGwayEYYne2yGS0tx/drtroqSYAdlafo+dbfBEHYbJJWnmADt/eSPxDTfI0zgxoX83708HpHZxVtOMQVt78zpi3D4YsiXyDzv4n266kJJIkBJupHuwsFryqbKKEppItb7nClQ50p+IHYhJ76tBmz5EtRdY1uQZWK+YCoZb9rW8nyUmRwOHf9jbqeQ41j6jKJgr9+34LCc9Z5GkclE+mcDqRcFk2rvRnip7o4cpb3aVr8qxF+cZoEk1fbetVJBFLANymcWI+0CRFmq5kt1lK8H04uPjkSQJZ8JX5WclXXsKlX6pc2szdPqLqTk8c2Oj+8vrV5WCxLAmM8d4X+6KLHEnge69car0GH8iul1o2UaikbnFGsMFslStHvozwk6EEe83+XCfZ+17K3/r+LrMH6sM6GLpx7pleqD/wbA9Lgqt5/kLjB7P+JvzKPIMOjq20NuXKA3SwzEKkD3CDZc4cHi1li9XliyQ0t47bN6eQznI0nBkyd10VXYFQmLUwsD/s/JQvWBddjxtysjzpgmfw2eqtQzqwN/JH6wPIyLTVrjV45PE7b/PAIsfiW5BCjVzDmeHGNz2TzAp1PEduLsipfeEeS+o7gO2DbG8kb2/kFQldkweANHOYSONKi/VCbQjIm5zTgWXOMMvUyo/fuGzpvjrtAoeEWseT4oJsB9tNlce7WsOUJmraCqX9Qx006ECRE/ZJ3GbxVOaF+oCgZQanyzNZ/Yc63rX0j8+6oLAKGPTnV+c1tX1tWzPbxOeO7bF9Js+QGLDryO/6MmprE6GX7xIInxvv7VGjC7HWQiR5ZRlJp+rE25auK9NODJ7nOLJ5rYkFj5/FbPT0fTusUO1i0rnmCzgf/8uI5rZWAZ2E46U3Li2UTbS46QocXMVr6feZzF4InueJC9bAnG/QE+utNzqertkSK3ixBBAo1bW3CDnsTkAfQtrfHW/94onujE9JJDAWfzqBq++TV99Q2ElMFT+PTNLzbWe/BVyXaR4KLKx8ftNj+zco9o0iAeSFe8qtBUY982WsC2CrrmOvXNIsJzrydYFQfzxplA7zfU4khiI7V/GqJung+WBwYs6JweNhBxs6x92bkrrZpASQ1+t22uAfWBKwucnIpM/507P/0JZEcBT/LiIfrOpR7eeut3M7z7FClI6jL/Xh4cYFQ/R7MVuvs718b4X2bjQKFLnW8Vk/2we4ClA4rM6j21O6Ex3c5CLSROQOzEPwmIChsB1ahVr2Xhow+Pe9fpdfCgsGHY/F1dbxrS8sW6lTJoBUP9fbAhuaPXHAL7zJZLSCzFSTYPWBN02zh7soG3wSzedCtfVpqrYoG3hxwmVGn4f2wQZ2nrLNUJVQIq9+c4d9580CK0hQwsk/xQWn/EPJ5JTVseCROShanBE936Yl+IPP9ViydHHZwEE/bfBI2gSQXxzc1Fy9oTBaVQW4rX11v+9Pdqeo+2DRQtsMBxxc5XBay2x4fahqZlFyBUNhIQe6WWif7WDraYNHNCWAPFq1vnlHcQFLYh58/erMguuhjqHYo0Q61gDjUCQptE3O4CZCpNik4uGOQTx5OcHtBDzQL0rU1v6N7ZqCRzQngPyyenPztiKTDcc+1tPQeLGa776fnY3xQCOFRZIP1bbirbTS+UppoTDrZ081RGgmbV3H9mgO/rr50okuS+3zFxQSosO7+ujF1ZR2mij968aUTxKWcuzUQNWy++qjgP7rMQs4EKXdAiRwo5N6++N35r9MRhJalum2Kla2A1kiKfmhnSvYqrlR+5+ADm5w0XOrKD1bfN0d7McGnXjCQt8B7btMsYP2Jwo6UFxPz5eM0vO7PzLdryj0whon7b3jkycdhI7UVlH31owsc6X5cC6ERavEofmA8in/fxDyH+L8pJ2FvoK4AAAAAElFTkSuQmCC",
+      "type": "command"
+    }
+  }
+}
