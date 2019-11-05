@@ -10,12 +10,15 @@ import { Dialog } from '@microsoft/sp-dialog';
 import { PrimaryButton, autobind, Modal } from 'office-ui-fabric-react';
 
 import * as strings from 'CallAzureFunctionCommandSetStrings';
-import { HttpClientConfiguration, HttpClient } from '@microsoft/sp-http';
+import { HttpClientConfiguration, HttpClient, IHttpClientOptions } from '@microsoft/sp-http';
 import { setup as pnpSetup } from "@pnp/common";
 import { sp } from "@pnp/sp";
 import ProgressDialog from './ProgressDialog';
 import { ISetting } from './ISetting';
 import { ISettingListItem } from './ISettingListItem';
+import { IDurableFunctionResult } from './IDurableFunctionResult';
+import { IDurableFunctionCustomStatus } from './IDurableFunctionCustomStatus';
+import { IAzureFunctionMessage } from './IAzureFunctionMessage';
 
 /**
  * If your command set uses the ClientSideComponentProperties JSON input,
@@ -75,7 +78,24 @@ export default class CallAzureFunctionCommandSet extends BaseListViewCommandSet<
                     this._initCommand(cmd, setting, event);
                 }
             });
+        } else {
+            //hide the command buttone when there is settings found.
+            const cmd: Command = this.tryGetCommand("COMMAND_1");
+            if (cmd) {
+                cmd.visible = false;
+            }
         }
+    }
+
+    private _getCurrentFolder(): string {
+        let ret = "";
+        const qs1 = new URLSearchParams(window.location.href);
+        if (qs1.has("id")) {
+            ret = decodeURIComponent(qs1.get("id"));
+        } else {
+            ret = decodeURIComponent(this.context.pageContext.list.serverRelativeUrl);
+        }
+        return ret;
     }
 
     @autobind
@@ -86,12 +106,68 @@ export default class CallAzureFunctionCommandSet extends BaseListViewCommandSet<
                 const setting = res[0];
                 const dlg: ProgressDialog = new ProgressDialog();
                 //dlg.title="Status";
-                dlg.message = "running Azure Function";
+                dlg.message = "Running Azure Function";
                 dlg.show();
-                this.context.httpClient.get(setting.setting.apiUrl, HttpClient.configurations.v1).then(result => {
-                    return dlg.close();
-                }).then(_ => {
-                    Dialog.alert("The Azure Function was completed successfully");
+
+                const azureFunctionMessage: IAzureFunctionMessage = {
+                    siteUrl: this.context.pageContext.web.absoluteUrl,
+                    listTitle: this.context.pageContext.list.title,
+                    listId: this.context.pageContext.list.id.toString(),
+                    currentFolder: this._getCurrentFolder()
+                };
+                const options: IHttpClientOptions = {
+                    body: JSON.stringify(azureFunctionMessage)
+                };
+                this.context.httpClient.post(setting.setting.apiUrl, HttpClient.configurations.v1, options).then(result => {
+                    switch (result.status) {
+                        case 200:
+                            dlg.close().then(_ => {
+                                Dialog.alert("The Azure Function was completed successfully").then(() => {
+                                    if (setting.setting.refreshPage) {
+                                        window.location.reload(true);
+                                    }
+                                });
+                            });
+                            break;
+                        case 202:
+                            result.json().then((apiResult: IDurableFunctionResult) => {
+                                if (apiResult.statusQueryGetUri) {
+                                    const timerId = setInterval(_ => {
+                                        console.log(`Access ${apiResult.statusQueryGetUri}...`);
+                                        this.context.httpClient.get(apiResult.statusQueryGetUri, HttpClient.configurations.v1).then(statusResult => {
+                                            console.log(`status: ${statusResult.status}`);
+                                            if (statusResult.status == 200) {
+                                                clearInterval(timerId);
+                                                dlg.close().then(() => {
+                                                    Dialog.alert("The Azure Function was completed successfully").then(() => {
+                                                        if (setting.setting.refreshPage) {
+                                                            window.location.reload(true);
+                                                        }
+                                                    });
+                                                });
+                                            } else {
+                                                statusResult.json().then((customStatus: IDurableFunctionCustomStatus) => {
+                                                    if (customStatus.customStatus) {
+                                                        dlg.updateStatus(`${customStatus.customStatus.Process}% ${customStatus.customStatus.Message}`);
+                                                    }
+                                                });
+
+                                            }
+                                        });
+                                    }, 500);
+                                }
+                            });
+                            break;
+                        default:
+                            dlg.close().then(_ => {
+                                Dialog.alert(`The Azure Function was completed failed. status: ${result.status}`);
+                            });
+                            break;
+                    }
+                }).catch(error => {
+                    dlg.close().then(() => {
+                        Dialog.alert(`Calling Azure Function was failed. error: ${error}`);
+                    });
                 });
             } else {
                 Dialog.alert("Please add 'AzureFunctionUrl' to 'Settings' list");

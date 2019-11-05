@@ -5,6 +5,7 @@ export class SettingValue {
     public iconImage: string;
     public apiUrl: string;
     public displayLists: string[];
+    public refreshPage: boolean;
 
     @autobind
     public IsShownForList(listTitle: string): boolean {
