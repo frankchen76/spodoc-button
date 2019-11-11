@@ -3,7 +3,7 @@
     "solution": {
         "name": "spodoc-button",
         "id": "58a43ba4-9eda-4713-8080-086f5b3c8df6",
-        "version": "1.0.0.1",
+        "version": "1.0.0.2",
         "includeClientSideAssets": true,
         "isDomainIsolated": false,
         "features": [{

@@ -115,8 +115,12 @@ export default class CallAzureFunctionCommandSet extends BaseListViewCommandSet<
                     listId: this.context.pageContext.list.id.toString(),
                     currentFolder: this._getCurrentFolder()
                 };
+                let requestHeader = new Headers();
+                requestHeader.append("Content-Type", "application/json");
+                requestHeader.append('Cache-Control', 'no-cache');
                 const options: IHttpClientOptions = {
-                    body: JSON.stringify(azureFunctionMessage)
+                    body: JSON.stringify(azureFunctionMessage),
+                    headers: requestHeader
                 };
                 this.context.httpClient.post(setting.setting.apiUrl, HttpClient.configurations.v1, options).then(result => {
                     switch (result.status) {
