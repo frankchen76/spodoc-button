@@ -73,24 +73,15 @@ When a Azure Function is called, the following data will be POST to the endpoint
 ```
 ![](./screenshots/button-03.png)
 ### Building the code
-
-```bash
-git clone the repo
-npm i
-npm i -g gulp
-gulp
+* Please follow [Set up your SharePoint Framework development environment](docs.microsoft.com/en-us/sharepoint/dev/spfx/set-up-your-development-environment) to setup your development environment.
+* Connect to GitHub to clone the project
+* Run the following command to start a local debugger: 
+```command
+npm install
+gulp server
 ```
-
-This package produces the following:
-
-* lib/* - intermediate-stage commonjs build artifacts
-* dist/* - the bundled script, along with other resources
-* deploy/* - all resources which should be uploaded to a CDN.
-
-### Build options
-
-gulp clean - TODO
-gulp test - TODO
-gulp serve - TODO
-gulp bundle - TODO
-gulp package-solution - TODO
+* Run the following command to create a package: 
+```command
+gulp bundle --ship
+gulp package-solution --ship
+```
